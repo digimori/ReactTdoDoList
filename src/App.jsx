@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "./styles.css"
 import { NewTodoForm } from "./NewTodoForm"
+import { TodoList } from "./TodoList"
 
 export default function App() {
   
@@ -14,8 +15,6 @@ export default function App() {
       ]
     })
   }
-
-  
 
   function toggleToDo(id, completed) {
     setTodos(currentTodos => {
@@ -39,20 +38,8 @@ export default function App() {
   <>
   <NewTodoForm addTodo={addTodo} />
   <h1 className="header">Todo List</h1>
-  <ul className="list">
-    {todos.length === 0 && "No Todos"}
-    {todos.map(todo => {
-      return( <li key={todo.id}>
-        <label>
-          <input type="checkbox" checked={todo.completed} onChange={e => toggleToDo(todo.id, e.target.checked)} // This is checking if the toggle is checked, e=eventlistener
-          /> 
-          {todo.title}
-        </label>
-        <button onClick={() => deleteTodo(todo.id)} className="btn btn-danger">Delete</button>
-      </li>
-      )}
-    )}
-  </ul>
+  <TodoList todos={todos} toggleToDo={toggleToDo} deleteTodo={deleteTodo} />
+
 </>
   )
 }
